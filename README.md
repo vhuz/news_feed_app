@@ -1,9 +1,7 @@
 News Feed App
 ===================================
 
-News Feed java application to practice API programming. 
-The source of news articles is Guardian API.
-
+News Feed java application to practice API programming. The source of news articles is Guardian API.
 The software is developed based on Udacity course in the Beginning Android Nanodegree.
 
 More info concerning use of Guardian API:
