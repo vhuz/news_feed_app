@@ -42,107 +42,107 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Kick off an {@link AsyncTask} to perform the network request
-        TsunamiAsyncTask task = new TsunamiAsyncTask();
+        NewsAsyncTask task = new NewsAsyncTask();
         task.execute();
 
 
-        // create list of articles
-        final ArrayList<NewsArticle> articles = new ArrayList<>();
-
-
-        TextView output = (TextView) findViewById(R.id.textView1);
-        String strJson = "{\"response\":{\"status\":\"ok\",\"userTier\":\"developer\",\"total\":2201483,\"startIndex\":1,\"pageSize\":10,\"currentPage\":1,\"pages\":220149,\"orderBy\":\"newest\"},\n" +
-                "\"results\":[\n" +
-                "{\"id\":\"business/live/2020/jun/26/stocks-rise-despite-fed-warning-over-700bn-in-covid-19-loan-losses-business-live\",\n" +
-                "\"type\":\"liveblog\",\n" +
-                "\"sectionId\":\"business\",\n" +
-                "\"sectionName\":\"Business\",\n" +
-                "\"webPublicationDate\":\"2020-06-26T12:54:15Z\",\n" +
-                "\"webTitle\":\"Stocks rise despite Fed warning over $700bn in Covid-19 loan losses  - business live | John Smith \",\n" +
-                "\"webUrl\":\"https://www.theguardian.com/business/live/2020/jun/26/stocks-rise-despite-fed-warning-over-700bn-in-covid-19-loan-losses-business-live\",\n" +
-                "\"apiUrl\":\"https://content.guardianapis.com/business/live/2020/jun/26/stocks-rise-despite-fed-warning-over-700bn-in-covid-19-loan-losses-business-live\",\n" +
-                "\"isHosted\":false,\n" +
-                "\"pillarId\":\"pillar/news\",\n" +
-                "\"pillarName\":\"News\"},\n" +
-                "{\"id\":\"football/live/2020/jun/25/liverpool-win-the-premier-league-title-live-reaction\",\n" +
-                "\"type\":\"liveblog\",\n" +
-                "\"sectionId\":\"football\",\n" +
-                "\"sectionName\":\"Football\",\n" +
-                "\"webPublicationDate\":\"2020-06-26T12:53:20Z\",\n" +
-                "\"webTitle\":\"Liverpool are crowned Premier League champions – live reaction!\",\n" +
-                "\"webUrl\":\"https://www.theguardian.com/football/live/2020/jun/25/liverpool-win-the-premier-league-title-live-reaction\",\n" +
-                "\"apiUrl\":\"https://content.guardianapis.com/football/live/2020/jun/25/liverpool-win-the-premier-league-title-live-reaction\",\n" +
-                "\"isHosted\":false,\n" +
-                "\"pillarId\":\"pillar/sport\",\n" +
-                "\"pillarName\":\"Sport\"},\n" +
-                "{\"id\":\"us-news/live/2020/jun/26/mike-pence-coronavirus-elijah-mcclain-donald-trump-live-updates\",\n" +
-                "\"type\":\"liveblog\",\n" +
-                "\"sectionId\":\"us-news\",\n" +
-                "\"sectionName\":\"US news\",\n" +
-                "\"webPublicationDate\":\"2020-06-26T12:49:29Z\",\n" +
-                "\"webTitle\":\"US politics: Mike Pence to lead first public coronavirus task force briefing for months – live updates\",\n" +
-                "\"webUrl\":\"https://www.theguardian.com/us-news/live/2020/jun/26/mike-pence-coronavirus-elijah-mcclain-donald-trump-live-updates\",\n" +
-                "\"apiUrl\":\"https://content.guardianapis.com/us-news/live/2020/jun/26/mike-pence-coronavirus-elijah-mcclain-donald-trump-live-updates\",\n" +
-                "\"isHosted\":false,\n" +
-                "\"pillarId\":\"pillar/news\",\n" +
-                "\"pillarName\":\"News\"}]}";
-        Toast.makeText(this, strJson, Toast.LENGTH_SHORT).show();
-        String data = "";
-        try {
-            JSONObject jsonRootObject = new JSONObject(strJson);
-
-            //Get the instance of JSONArray that contains JSONObjects
-            //JSONArray jsonArray = jsonRootObject.optJSONArray("Employee");
-            JSONArray jsonArray = jsonRootObject.optJSONArray("results");
-
-            // create arrays of empty fields for custom objects NewsArticles
-            String[] article_section = new String[jsonArray.length()];
-            String[] article_title = new String[jsonArray.length()];
-            String[] article_web = new String[jsonArray.length()];
-            String[] article_author = new String[jsonArray.length()];
-
-            //Iterate the jsonArray and print the info of JSONObjects
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                //int id = Integer.parseInt(jsonObject.optString("id").toString());
-                String sectionName = jsonObject.optString("sectionName").toString();
-                //float salary = Float.parseFloat(jsonObject.optString("salary").toString());
-                String webTitle = jsonObject.optString("webTitle").toString();
-                String webUrl = jsonObject.optString("webUrl").toString();
-
-                data += "Node" + i + " : \n " +
-                        "Section= " + sectionName +
-                        "\n Title= " + webTitle +
-                        "\n Web= " + webUrl + " \n";
-                article_section[i] = sectionName;
-                article_title[i] = webTitle;
-                article_web[i] = webUrl;
-                article_author[i] = "Not known author";
-
-                // to find out if author of article can be retrieved
-                boolean isFound = webTitle.indexOf("|") != -1;
-
-                if (isFound) {
-                    String author = webTitle.substring((webTitle.indexOf("|") + 2));
-                    data += "\n Author: " + author + "\n ";
-                }
-
-                data += "\n Current Date: " + (new DateTimeFormat("")).getCurrentDate() + "\n";
-                data += "\n Current Raw Date: " + (new DateTimeFormat("")).getRawDateTime() + "\n";
-                data += "\n Current Time: " + (new DateTimeFormat("")).getCurrentTime() + "\n";
-
-                articles.add(new NewsArticle(article_section[i], article_title[i], article_web[i], article_web[i], article_author[i]));
-
-            }
-
-            output.setText(data);
-            //output.setText(articles.toString());
-
-        } catch (JSONException e) {
-            //Toast.makeText(this, "error" + e, Toast.LENGTH_LONG).show();
-            Log.e("Error", String.valueOf(e));
-        }
+//        // create list of articles
+//        final ArrayList<NewsArticle> articles = new ArrayList<>();
+//
+//
+//        TextView output = (TextView) findViewById(R.id.textView1);
+//        String strJson = "{\"response\":{\"status\":\"ok\",\"userTier\":\"developer\",\"total\":2201483,\"startIndex\":1,\"pageSize\":10,\"currentPage\":1,\"pages\":220149,\"orderBy\":\"newest\"},\n" +
+//                "\"results\":[\n" +
+//                "{\"id\":\"business/live/2020/jun/26/stocks-rise-despite-fed-warning-over-700bn-in-covid-19-loan-losses-business-live\",\n" +
+//                "\"type\":\"liveblog\",\n" +
+//                "\"sectionId\":\"business\",\n" +
+//                "\"sectionName\":\"Business\",\n" +
+//                "\"webPublicationDate\":\"2020-06-26T12:54:15Z\",\n" +
+//                "\"webTitle\":\"Stocks rise despite Fed warning over $700bn in Covid-19 loan losses  - business live | John Smith \",\n" +
+//                "\"webUrl\":\"https://www.theguardian.com/business/live/2020/jun/26/stocks-rise-despite-fed-warning-over-700bn-in-covid-19-loan-losses-business-live\",\n" +
+//                "\"apiUrl\":\"https://content.guardianapis.com/business/live/2020/jun/26/stocks-rise-despite-fed-warning-over-700bn-in-covid-19-loan-losses-business-live\",\n" +
+//                "\"isHosted\":false,\n" +
+//                "\"pillarId\":\"pillar/news\",\n" +
+//                "\"pillarName\":\"News\"},\n" +
+//                "{\"id\":\"football/live/2020/jun/25/liverpool-win-the-premier-league-title-live-reaction\",\n" +
+//                "\"type\":\"liveblog\",\n" +
+//                "\"sectionId\":\"football\",\n" +
+//                "\"sectionName\":\"Football\",\n" +
+//                "\"webPublicationDate\":\"2020-06-26T12:53:20Z\",\n" +
+//                "\"webTitle\":\"Liverpool are crowned Premier League champions – live reaction!\",\n" +
+//                "\"webUrl\":\"https://www.theguardian.com/football/live/2020/jun/25/liverpool-win-the-premier-league-title-live-reaction\",\n" +
+//                "\"apiUrl\":\"https://content.guardianapis.com/football/live/2020/jun/25/liverpool-win-the-premier-league-title-live-reaction\",\n" +
+//                "\"isHosted\":false,\n" +
+//                "\"pillarId\":\"pillar/sport\",\n" +
+//                "\"pillarName\":\"Sport\"},\n" +
+//                "{\"id\":\"us-news/live/2020/jun/26/mike-pence-coronavirus-elijah-mcclain-donald-trump-live-updates\",\n" +
+//                "\"type\":\"liveblog\",\n" +
+//                "\"sectionId\":\"us-news\",\n" +
+//                "\"sectionName\":\"US news\",\n" +
+//                "\"webPublicationDate\":\"2020-06-26T12:49:29Z\",\n" +
+//                "\"webTitle\":\"US politics: Mike Pence to lead first public coronavirus task force briefing for months – live updates\",\n" +
+//                "\"webUrl\":\"https://www.theguardian.com/us-news/live/2020/jun/26/mike-pence-coronavirus-elijah-mcclain-donald-trump-live-updates\",\n" +
+//                "\"apiUrl\":\"https://content.guardianapis.com/us-news/live/2020/jun/26/mike-pence-coronavirus-elijah-mcclain-donald-trump-live-updates\",\n" +
+//                "\"isHosted\":false,\n" +
+//                "\"pillarId\":\"pillar/news\",\n" +
+//                "\"pillarName\":\"News\"}]}";
+//        Toast.makeText(this, strJson, Toast.LENGTH_SHORT).show();
+//        String data = "";
+//        try {
+//            JSONObject jsonRootObject = new JSONObject(strJson);
+//
+//            //Get the instance of JSONArray that contains JSONObjects
+//            //JSONArray jsonArray = jsonRootObject.optJSONArray("Employee");
+//            JSONArray jsonArray = jsonRootObject.optJSONArray("results");
+//
+//            // create arrays of empty fields for custom objects NewsArticles
+//            String[] article_section = new String[jsonArray.length()];
+//            String[] article_title = new String[jsonArray.length()];
+//            String[] article_web = new String[jsonArray.length()];
+//            String[] article_author = new String[jsonArray.length()];
+//
+//            //Iterate the jsonArray and print the info of JSONObjects
+//            for (int i = 0; i < jsonArray.length(); i++) {
+//                JSONObject jsonObject = jsonArray.getJSONObject(i);
+//
+//                //int id = Integer.parseInt(jsonObject.optString("id").toString());
+//                String sectionName = jsonObject.optString("sectionName").toString();
+//                //float salary = Float.parseFloat(jsonObject.optString("salary").toString());
+//                String webTitle = jsonObject.optString("webTitle").toString();
+//                String webUrl = jsonObject.optString("webUrl").toString();
+//
+//                data += "Node" + i + " : \n " +
+//                        "Section= " + sectionName +
+//                        "\n Title= " + webTitle +
+//                        "\n Web= " + webUrl + " \n";
+//                article_section[i] = sectionName;
+//                article_title[i] = webTitle;
+//                article_web[i] = webUrl;
+//                article_author[i] = "Not known author";
+//
+//                // to find out if author of article can be retrieved
+//                boolean isFound = webTitle.indexOf("|") != -1;
+//
+//                if (isFound) {
+//                    String author = webTitle.substring((webTitle.indexOf("|") + 2));
+//                    data += "\n Author: " + author + "\n ";
+//                }
+//
+//                data += "\n Current Date: " + (new DateTimeFormat("")).getCurrentDate() + "\n";
+//                data += "\n Current Raw Date: " + (new DateTimeFormat("")).getRawDateTime() + "\n";
+//                data += "\n Current Time: " + (new DateTimeFormat("")).getCurrentTime() + "\n";
+//
+//                articles.add(new NewsArticle(article_section[i], article_title[i], article_web[i], article_web[i], article_author[i]));
+//
+//            }
+//
+//            output.setText(data);
+//            //output.setText(articles.toString());
+//
+//        } catch (JSONException e) {
+//            //Toast.makeText(this, "error" + e, Toast.LENGTH_LONG).show();
+//            Log.e("Error", String.valueOf(e));
+//        }
 
 
     }
@@ -189,7 +189,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Update the screen to display information from the given {@link NewsArticle}.
      */
-    private void updateUi(NewsArticle earthquake) {
+    private void updateUi(NewsArticle newsArticle) {
+
+        TextView output = (TextView) findViewById(R.id.textView1);
+        output.setText(newsArticle.getWebTitle());
 //        // Display the earthquake title in the UI
 //        TextView titleTextView = (TextView) findViewById(R.id.title);
 //        titleTextView.setText(earthquake.title);
@@ -229,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
      * {@link AsyncTask} to perform the network request on a background thread, and then
      * update the UI with the first earthquake in the response.
      */
-    private class TsunamiAsyncTask extends AsyncTask<URL, Void, NewsArticle> {
+    private class NewsAsyncTask extends AsyncTask<URL, Void, NewsArticle> {
 
         @Override
         protected NewsArticle doInBackground(URL... urls) {
@@ -245,23 +248,23 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Extract relevant fields from the JSON response and create an {@link Event} object
-            NewsArticle earthquake = extractFeatureFromJson(jsonResponse);
+            NewsArticle newsArticle = extractFeatureFromJson(jsonResponse);
 
-            // Return the {@link Event} object as the result fo the {@link TsunamiAsyncTask}
-            return earthquake;
+            // Return the {@link Event} object as the result fo the {@link NewsAsyncTask}
+            return newsArticle;
         }
 
         /**
          * Update the screen with the given earthquake (which was the result of the
-         * {@link TsunamiAsyncTask}).
+         * {@link NewsAsyncTask}).
          */
         @Override
-        protected void onPostExecute(NewsArticle earthquake) {
-            if (earthquake == null) {
+        protected void onPostExecute(NewsArticle newsArticle) {
+            if (newsArticle == null) {
                 return;
             }
 
-            updateUi(earthquake);
+            updateUi(newsArticle);
         }
 
         /**
@@ -335,33 +338,67 @@ public class MainActivity extends AppCompatActivity {
          * Return an {@link NewsArticle} object by parsing out information
          * about the first earthquake from the input earthquakeJSON string.
          */
-        private NewsArticle extractFeatureFromJson(String earthquakeJSON) {
+        private NewsArticle extractFeatureFromJson(String newsJSON) {
 
             // if the JSON string is empty or null, then return early.
-            if (TextUtils.isEmpty(earthquakeJSON)) {
+            if (TextUtils.isEmpty(newsJSON)) {
                 return null;
             }
 
-
             try {
-                JSONObject baseJsonResponse = new JSONObject(earthquakeJSON);
-                JSONArray featureArray = baseJsonResponse.getJSONArray("features");
+//            try {
+//                JSONObject baseJsonResponse = new JSONObject(newsJSON);
+//                JSONArray featureArray = baseJsonResponse.getJSONArray("features");
+//
+//                // If there are results in the features array
+//                if (featureArray.length() > 0) {
+//                    // Extract out the first feature (which is an earthquake)
+//                    JSONObject firstFeature = featureArray.getJSONObject(0);
+//                    JSONObject properties = firstFeature.getJSONObject("properties");
+//
+//                    // Extract out the title, time, and tsunami values
+//                    String title = properties.getString("title");
+//                    long time = properties.getLong("time");
+//                    int tsunamiAlert = properties.getInt("tsunami");
+//
+//                    // Create a new {@link Event} object
+//                    return new NewsArticle(title, time, tsunamiAlert);
+//                }
 
-                // If there are results in the features array
-                if (featureArray.length() > 0) {
-                    // Extract out the first feature (which is an earthquake)
-                    JSONObject firstFeature = featureArray.getJSONObject(0);
-                    JSONObject properties = firstFeature.getJSONObject("properties");
 
-                    // Extract out the title, time, and tsunami values
-                    String title = properties.getString("title");
-                    long time = properties.getLong("time");
-                    int tsunamiAlert = properties.getInt("tsunami");
+                JSONObject baseJsonResponse = new JSONObject(newsJSON);
 
-                    // Create a new {@link Event} object
-                    return new NewsArticle(title, time, tsunamiAlert);
-                }
-            } catch (JSONException e) {
+                //Get the instance of JSONArray that contains JSONObjects
+                JSONObject firstFeature = baseJsonResponse.getJSONObject("response");
+                JSONArray jsonArray = firstFeature.optJSONArray("results");
+
+                // If there are results in the jsonArray
+                if (jsonArray.length() > 0) {
+//                    // create arrays of empty fields for custom objects NewsArticles
+//                    String[] article_section = new String[jsonArray.length()];
+//                    String[] article_title = new String[jsonArray.length()];
+//                    String[] article_web = new String[jsonArray.length()];
+//                    String[] article_author = new String[jsonArray.length()];
+//
+//                    //Iterate the jsonArray and print the info of JSONObjects
+//                    for (int i = 0; i < jsonArray.length(); i++) {
+//                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+//
+//                        //int id = Integer.parseInt(jsonObject.optString("id").toString());
+//                        String sectionName = jsonObject.optString("sectionName").toString();
+//                        //float salary = Float.parseFloat(jsonObject.optString("salary").toString());
+//                        String webTitle = jsonObject.optString("webTitle").toString();
+//                        String webUrl = jsonObject.optString("webUrl").toString();
+//                    }
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    String sectionName = jsonObject.optString("sectionName").toString();
+                    String webTitle = jsonObject.optString("webTitle").toString();
+                    String webUrl = jsonObject.optString("webUrl").toString();
+
+                    // Create a new {@link NewsArticle} object
+                    return new NewsArticle(sectionName, webTitle, webUrl);
+                }}
+                catch (JSONException e) {
                 Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
             }
             return null;
