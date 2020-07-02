@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String WEBSITE_REQUEST_URL =
             //"https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2012-01-01&endtime=2012-12-01&minmagnitude=6";
             //"https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-12-01&minmagnitude=7";
-            "https://content.guardianapis.com/search?api-key=ad2374d4-a9bb-46a9-9d41-0a3cb773578f";
+            "https://content.guardianapis.com/search?api-key=test";
 
 
     @Override
