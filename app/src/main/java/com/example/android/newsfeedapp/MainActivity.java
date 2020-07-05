@@ -24,16 +24,30 @@ import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+
+
 public class MainActivity extends AppCompatActivity {
 
     /** Tag for the log messages */
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    /** URL to query the Guardian dataset for news information */
+
+    // Secret codes API keys, etc are set up in file apikey.properties (root directory of the project)
+    // the variables are loaded from that file through code in build.gradle.
+    // The secret keys are available in the module through BuildConfig class. for example, BuildConfig.API_KEY
+    // reference: https://guides.codepath.com/android/Storing-Secret-Keys-in-Android
+    // https://medium.com/@geocohn/keeping-your-android-projects-secrets-secret-393b8855765d
+
+
+    /** URL to query the Guardian dataset for news information
+     *
+     *  instead of secret API key, you can use value: test
+     *
+     * */
     private static final String WEBSITE_REQUEST_URL =
             //"https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2012-01-01&endtime=2012-12-01&minmagnitude=6";
             //"https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-12-01&minmagnitude=7";
-            "https://content.guardianapis.com/search?api-key=ad2374d4-a9bb-46a9-9d41-0a3cb773578f";
+            "https://content.guardianapis.com/search?api-key=" + BuildConfig.API_KEY;
 
 
     @Override
@@ -192,14 +206,15 @@ public class MainActivity extends AppCompatActivity {
     private void updateUi(NewsArticle newsArticle) {
 
         TextView output = (TextView) findViewById(R.id.textView1);
-        output.setText(newsArticle.getWebTitle());
-//        // Display the earthquake title in the UI
-//        TextView titleTextView = (TextView) findViewById(R.id.title);
-//        titleTextView.setText(earthquake.title);
-//
+        output.setText(newsArticle.getSectionName());
+
+        // Display the earthquake title in the UI
+        TextView titleTextView = (TextView) findViewById(R.id.textView2);
+        titleTextView.setText(newsArticle.getWebTitle());
+
 //        // Display the earthquake date in the UI
-//        TextView dateTextView = (TextView) findViewById(R.id.date);
-//        dateTextView.setText(getDateString(earthquake.time));
+//        TextView dateTextView = (TextView) findViewById(R.id.textView3);
+//        dateTextView.setText(newsArticle.getDateTimePublication());
 //
 //        // Display whether or not there was a tsunami alert in the UI
 //        TextView tsunamiTextView = (TextView) findViewById(R.id.tsunami_alert);
