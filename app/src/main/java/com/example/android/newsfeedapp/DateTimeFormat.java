@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 public class DateTimeFormat {
 
-    private String mFormattedDate;
+    private static String mFormattedDate;
     private String mRawDateTime;
     private String mFormattedTime;
 
@@ -30,7 +30,7 @@ public class DateTimeFormat {
 
     }
 
-    public String getCurrentDate() {return mFormattedDate;}
+    public static String getCurrentDate() {return mFormattedDate;}
     public String getRawDateTime() {return mRawDateTime;}
     public String getCurrentTime() {return mFormattedTime;}
 
