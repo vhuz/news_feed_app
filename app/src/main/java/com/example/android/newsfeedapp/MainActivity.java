@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-        if (key.equals(getString(R.string.settings_min_magnitude_key)) ||
+        if (key.equals(getString(R.string.settings_min_pagesize_key)) ||
                 key.equals(getString(R.string.settings_order_by_key))){
             // Clear the ListView as a new query will be kicked off
             mAdapter.clear();
@@ -152,14 +152,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public Loader<List<NewsArticle>> onCreateLoader(int i, Bundle bundle) {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String minMagnitude = sharedPrefs.getString(
-                getString(R.string.settings_min_magnitude_key),
-                getString(R.string.settings_min_magnitude_default));
+        String minPageSize = sharedPrefs.getString(
+                getString(R.string.settings_min_pagesize_key),
+                getString(R.string.settings_min_pagesize_default));
 
         String orderBy = sharedPrefs.getString(
                 getString(R.string.settings_order_by_key),
                 getString(R.string.settings_order_by_default)
         );
+
+        String filterBy = sharedPrefs.getString(
+                getString(R.string.settings_filter_by_key),
+                getString(R.string.settings_filter_by_default)
+        );
+
 
         Uri baseUri = Uri.parse(WEBSITE_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
@@ -168,8 +174,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 //        uriBuilder.appendQueryParameter("format", "geojson");
 //        uriBuilder.appendQueryParameter("limit", "10");
-//        uriBuilder.appendQueryParameter("minmag", minMagnitude);
-//        uriBuilder.appendQueryParameter("orderby", orderBy);
+//        uriBuilder.appendQueryParameter("minmag", minPageSize);
+
+
+//        // adding search parameter "&section=news"
+//        uriBuilder.appendQueryParameter("section", "news");
+        uriBuilder.appendQueryParameter(getString(R.string.settings_filter_by_key), filterBy);
+
+//        // adding search parameter "&order-by=oldest"
+//        uriBuilder.appendQueryParameter("order-by", "oldest");
+        uriBuilder.appendQueryParameter(getString(R.string.settings_order_by_key), orderBy);
+
+        // adding search parameter, for example "&page-size=50"
+        uriBuilder.appendQueryParameter(getString(R.string.settings_min_pagesize_key), minPageSize);
 
         Log.i("onCreateLoader",uriBuilder.toString());
 

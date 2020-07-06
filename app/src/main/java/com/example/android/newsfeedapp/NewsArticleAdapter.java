@@ -113,8 +113,11 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
 
         // Create a new Date object from the time in milliseconds of the earthquake
         //Date dateObject = new Date(currentActicle.getTimeInMilliseconds());
-        Date Obj = new Date();
-        Date dateObject = Obj;
+        //webPublicationDate
+        //Date Obj = new Date();
+        Date dateObject = currentActicle.getDateTimePublication();
+
+
         // Find the TextView with view ID date
         TextView dateView = (TextView) listItemView.findViewById(R.id.date);
         // Format the date string (i.e. "Mar 3, 1984")

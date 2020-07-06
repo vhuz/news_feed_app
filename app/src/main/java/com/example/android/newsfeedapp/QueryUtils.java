@@ -207,13 +207,13 @@ public final class QueryUtils {
                 String sectionName = currentArticle.optString("sectionName");
                 String webTitle = currentArticle.optString("webTitle");
                 String webUrl = currentArticle.optString("webUrl");
-
+                String datePublished = currentArticle.optString("webPublicationDate");
 
 
                 // Create a new {@link NewsArticle} object with the magnitude, location, time,
                 // and url from the JSON response.
                 //NewsArticle article = new NewsArticle(magnitude, location, time, url);
-                NewsArticle article = new NewsArticle(sectionName, webTitle, webUrl);
+                NewsArticle article = new NewsArticle(sectionName, webTitle, webUrl, datePublished);
 
                 // Add the new {@link NewsArticle} to the list of earthquakes.
                 articles.add(article);

@@ -23,11 +23,18 @@
         android:key="@string/settings_order_by_key"
         android:title="@string/settings_order_by_label" />
 
+    <ListPreference
+        android:defaultValue="@string/settings_filter_by_default"
+        android:entries="@array/settings_filter_by_labels"
+        android:entryValues="@array/settings_filter_by_values"
+        android:key="@string/settings_filter_by_key"
+        android:title="@string/settings_filter_by_label" />
+
     <EditTextPreference
-        android:defaultValue="@string/settings_min_magnitude_default"
+        android:defaultValue="@string/settings_min_pagesize_default"
         android:inputType="numberDecimal"
-        android:key="@string/settings_min_magnitude_key"
+        android:key="@string/settings_min_pagesize_key"
         android:selectAllOnFocus="true"
-        android:title="@string/settings_min_magnitude_label" />
+        android:title="@string/settings_min_pagesize_label" />
 
 </PreferenceScreen>

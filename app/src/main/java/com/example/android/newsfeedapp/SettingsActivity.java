@@ -22,6 +22,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,11 +43,14 @@ public class SettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_main);
 
-            Preference minMagnitude = findPreference(getString(R.string.settings_min_magnitude_key));
-            bindPreferenceSummaryToValue(minMagnitude);
+            Preference minPagesize = findPreference(getString(R.string.settings_min_pagesize_key));
+            bindPreferenceSummaryToValue(minPagesize);
 
             Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
             bindPreferenceSummaryToValue(orderBy);
+
+            Preference filterBy = findPreference(getString(R.string.settings_filter_by_key));
+            bindPreferenceSummaryToValue(filterBy);
         }
 
         @Override
@@ -70,6 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
             SharedPreferences preferences =
                     PreferenceManager.getDefaultSharedPreferences(preference.getContext());
             String preferenceString = preferences.getString(preference.getKey(), "");
+            Log.i("Preference screen - preferenceString = ",preferenceString);
             onPreferenceChange(preference, preferenceString);
         }
     }

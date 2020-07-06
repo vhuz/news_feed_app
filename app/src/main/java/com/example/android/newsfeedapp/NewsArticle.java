@@ -87,55 +87,56 @@ public class NewsArticle {
     public String getUrl() {return mWebUrl;}
     // both methods should check if the article contains the data requested.(date and author of publication)
 
-    public String getDateTimePublication() {
-        String mRawDateTime;
-        DateTimeFormat myDateObj;
-        myDateObj = mDateTimePublicationDate;
-        mRawDateTime = myDateObj.toString();
-        return mRawDateTime;
+    public Date getDateTimePublication() {
+//        String mRawDateTime;
+//        DateTimeFormat myDateObj;
+//        myDateObj = mDateTimePublicationDate;
+//        mRawDateTime = myDateObj.toString();
+//        Date datePublished = Date.from(Instant.parse(mRawDateTime));
+        return Date.from(Instant.parse(mWebPublicationDate));
     }
 
 
-//    public String getWebPublicationDate() {
-//
-//        //mWebPublicationDate = "2020-06-26T12:49:29Z";
-//        //d = ((DateTime) mWebPublicationDate);
-//
-//        return getSimpleDateString(mWebPublicationDate);}
-//
-//
-//        // reference https://docs.oracle.com/javase/tutorial/i18n/format/simpleDateFormat.html
-//        private String getSimpleDateString(String fullDateTime) {
-//            String output;
-//            SimpleDateFormat formatter;
-//            String pattern = "EEE',' dd MMM yyyy";
-//            String currentLocale = "en_US";
-//
-//            formatter = new SimpleDateFormat(pattern, Locale.forLanguageTag(currentLocale));
-//
-//            Date datePublished = Date.from(Instant.parse(fullDateTime));
-//
-//            output = formatter.format(datePublished);
-//            System.out.println(pattern + " " + output);
-//
-//            return output;
-//        }
+    public String getWebPublicationDate() {
+
+        //mWebPublicationDate = "2020-06-26T12:49:29Z";
+        //d = ((DateTime) mWebPublicationDate);
+
+        return getSimpleDateString(mWebPublicationDate);}
 
 
-//    public String getAuthor () {
-//
-//        // reference https://javarevisited.blogspot.com/2016/10/how-to-check-if-string-contains-another-substring-in-java-indexof-example.html
-//        boolean isFound = mWebTitle.indexOf("|") != -1;
-//
-//        // Need to add another condition. The word should have a space to separate first name and last name.
-//        // Some of words after "|" have "Editorial", "Letter", "Letters" and so on.
-//
-//
-//        if (isFound) {
-//            mAuthor = "Author Exist";
-//        } else {
-//            mAuthor = "Not available";
-//        }
-//        return mAuthor;}
+        // reference https://docs.oracle.com/javase/tutorial/i18n/format/simpleDateFormat.html
+        private String getSimpleDateString(String fullDateTime) {
+            String output;
+            SimpleDateFormat formatter;
+            String pattern = "EEE',' dd MMM yyyy";
+            String currentLocale = "en_US";
+
+            formatter = new SimpleDateFormat(pattern, Locale.forLanguageTag(currentLocale));
+
+            Date datePublished = Date.from(Instant.parse(fullDateTime));
+
+            output = formatter.format(datePublished);
+            System.out.println(pattern + " " + output);
+
+            return output;
+        }
+
+
+    public String getAuthor () {
+
+        // reference https://javarevisited.blogspot.com/2016/10/how-to-check-if-string-contains-another-substring-in-java-indexof-example.html
+        boolean isFound = mWebTitle.indexOf("|") != -1;
+
+        // Need to add another condition. The word should have a space to separate first name and last name.
+        // Some of words after "|" have "Editorial", "Letter", "Letters" and so on.
+
+
+        if (isFound) {
+            mAuthor = "Author Exist";
+        } else {
+            mAuthor = "Not available";
+        }
+        return mAuthor;}
 
 }
