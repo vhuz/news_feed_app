@@ -42,11 +42,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      *
      * */
     private static final String WEBSITE_REQUEST_URL =
-            //"https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2012-01-01&endtime=2012-12-01&minmagnitude=6";
-            //"https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-12-01&minmagnitude=7";
             "https://content.guardianapis.com/search?api-key=" + BuildConfig.API_KEY;
-
-
+    
     /**
      * Constant value for the news loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
@@ -131,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-        if (key.equals(getString(R.string.settings_min_pagesize_key)) ||
+        if (key.equals(getString(R.string.settings_pagesize_key)) ||
                 key.equals(getString(R.string.settings_order_by_key))){
             // Clear the ListView as a new query will be kicked off
             mAdapter.clear();
@@ -153,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         String minPageSize = sharedPrefs.getString(
-                getString(R.string.settings_min_pagesize_key),
+                getString(R.string.settings_pagesize_key),
                 getString(R.string.settings_min_pagesize_default));
 
         String orderBy = sharedPrefs.getString(
@@ -172,11 +169,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // This is where we build URL based on preferences choice of the topic of the user
 
-//        uriBuilder.appendQueryParameter("format", "geojson");
-//        uriBuilder.appendQueryParameter("limit", "10");
-//        uriBuilder.appendQueryParameter("minmag", minPageSize);
-
-
 //        // adding search parameter "&section=news"
 //        uriBuilder.appendQueryParameter("section", "news");
         uriBuilder.appendQueryParameter(getString(R.string.settings_filter_by_key), filterBy);
@@ -186,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         uriBuilder.appendQueryParameter(getString(R.string.settings_order_by_key), orderBy);
 
         // adding search parameter, for example "&page-size=50"
-        uriBuilder.appendQueryParameter(getString(R.string.settings_min_pagesize_key), minPageSize);
+        uriBuilder.appendQueryParameter(getString(R.string.settings_pagesize_key), minPageSize);
 
         Log.i("onCreateLoader",uriBuilder.toString());
 
@@ -202,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Set empty state text to display "No articles found."
         mEmptyStateTextView.setText(R.string.no_news);
 
-        // Clear the adapter of previous earthquake data
+        // Clear the adapter of previous article data
         //mAdapter.clear();
 
         // If there is a valid list of {@link NewsArticle}s, then add them to the adapter's

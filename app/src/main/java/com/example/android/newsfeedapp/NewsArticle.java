@@ -1,26 +1,28 @@
 package com.example.android.newsfeedapp;
 
-import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Locale;
-
 
 /*
 * An {@link NewsArticle} object contains information related to a single news article.
 */
 public class NewsArticle {
 
-    private String mId;
-    private String mType;
-    private String mSectionId;
+    // tag to indication that date data was used in constructor
+    private boolean dateUsed = false;
+    private static final boolean DATE_USED = true;
+    private static final boolean DATE_NOT_USED = false;
+
+    // tag to indication that author data was used in constructor
+    private boolean authorUsed = false;
+    private static final boolean AUTHOR_USED = true;
+    private static final boolean AUTHOR_NOT_USED = false;
+
     // required for the project
     // source format - String
     private String mSectionName;
     // required for the project if available
     // source format - Datetime
-    private DateTimeFormat mDateTimePublicationDate;
     private String mWebPublicationDate;
     // required for the project
     // source format - String
@@ -28,16 +30,14 @@ public class NewsArticle {
     // need so we can pass it in intent for webbrowser
     // source format - String
     private String mWebUrl;
-    private String mApiUrl;
-    private String mIsHosted;
-    private String mPillarId;
-    private String mPillarName;
     // example of webTitle - 	"Coronavirus is our chance to completely rethink what the economy is for | Malcolm Bull"
     // author is listed after separator |
     // required for the project if available
     // source format - String
     private String mAuthor;
 
+
+    // Constructor with maximum data, including author and webPubilcationDate
     /**
      * Constructs a new {@link NewsArticle} object.
      *
@@ -53,75 +53,54 @@ public class NewsArticle {
         mWebPublicationDate = webPublicationDate;
         mAuthor = author;
         mWebUrl = url;
+        dateUsed = DATE_USED;
+        authorUsed = AUTHOR_USED;
     }
 
+
+    // Constructor with minimum data fields used
     /**
      * Constructs a new {@link NewsArticle}.
      *
-     * @param eventTitle is the title of the earthquake event
-     * @param eventTime is the time the earhtquake happened
-     * @param eventTsunamiAlert is whether or not a tsunami alert was issued
+     * @param sectionName is the section name of the news article
+     * @param webTitle is the title of the news article
+     * @param webUrl is the webURL for article
      */
-    public NewsArticle(String eventTitle, long eventTime, int eventTsunamiAlert) {
-        mWebTitle = eventTitle;
-        mWebPublicationDate = String.valueOf(eventTime);
-        mAuthor = String.valueOf(eventTsunamiAlert);
-    }
-
     public NewsArticle(String sectionName, String webTitle, String webUrl) {
         mSectionName = sectionName;
         mWebTitle = webTitle;
         mWebUrl = webUrl;
+        dateUsed = DATE_NOT_USED;
+        authorUsed = AUTHOR_NOT_USED;
     }
 
+    // Constructor with webPublicationDate present
+    /**
+     * Constructs a new {@link NewsArticle}.
+     *
+     * @param sectionName is the section name of the news article
+     * @param webTitle is the title of the news article
+     * @param webUrl is the webURL for article
+     * @param webPublicationDate is optional data - pubished date of the article (datetime format)
+     */
     public NewsArticle(String sectionName, String webTitle, String webUrl, String webPublicationDate) {
         mSectionName = sectionName;
         mWebTitle = String.valueOf(webTitle);
         mWebUrl = String.valueOf(webUrl);
         mWebPublicationDate = webPublicationDate;
+        mAuthor = mWebTitle;
+        dateUsed = DATE_USED;
+        authorUsed = AUTHOR_NOT_USED;
     }
-
 
     public String getSectionName() { return mSectionName;}
     public String getWebTitle() {return mWebTitle;}
     public String getUrl() {return mWebUrl;}
-    // both methods should check if the article contains the data requested.(date and author of publication)
 
+    // both methods should check if the article contains the data requested.(date and author of publication)
     public Date getDateTimePublication() {
-//        String mRawDateTime;
-//        DateTimeFormat myDateObj;
-//        myDateObj = mDateTimePublicationDate;
-//        mRawDateTime = myDateObj.toString();
-//        Date datePublished = Date.from(Instant.parse(mRawDateTime));
         return Date.from(Instant.parse(mWebPublicationDate));
     }
-
-
-    public String getWebPublicationDate() {
-
-        //mWebPublicationDate = "2020-06-26T12:49:29Z";
-        //d = ((DateTime) mWebPublicationDate);
-
-        return getSimpleDateString(mWebPublicationDate);}
-
-
-        // reference https://docs.oracle.com/javase/tutorial/i18n/format/simpleDateFormat.html
-        private String getSimpleDateString(String fullDateTime) {
-            String output;
-            SimpleDateFormat formatter;
-            String pattern = "EEE',' dd MMM yyyy";
-            String currentLocale = "en_US";
-
-            formatter = new SimpleDateFormat(pattern, Locale.forLanguageTag(currentLocale));
-
-            Date datePublished = Date.from(Instant.parse(fullDateTime));
-
-            output = formatter.format(datePublished);
-            System.out.println(pattern + " " + output);
-
-            return output;
-        }
-
 
     public String getAuthor () {
 

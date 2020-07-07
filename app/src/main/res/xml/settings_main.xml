@@ -33,7 +33,7 @@
     <EditTextPreference
         android:defaultValue="@string/settings_min_pagesize_default"
         android:inputType="numberDecimal"
-        android:key="@string/settings_min_pagesize_key"
+        android:key="@string/settings_pagesize_key"
         android:selectAllOnFocus="true"
         android:title="@string/settings_min_pagesize_label" />
 

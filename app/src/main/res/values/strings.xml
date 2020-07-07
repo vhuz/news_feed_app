@@ -19,7 +19,7 @@
 
     <!-- Strings For Minimum Magnitude Preference [CHAR LIMIT=30] -->
     <string name="settings_min_pagesize_label">Page size (from 1 to 50)</string>
-    <string name="settings_min_pagesize_key" translatable="false">page-size</string>
+    <string name="settings_pagesize_key" translatable="false">page-size</string>
     <string name="settings_min_pagesize_default" translatable="false">1</string>
     <string name="settings_max_pagesize" translatable="false">50</string>
 

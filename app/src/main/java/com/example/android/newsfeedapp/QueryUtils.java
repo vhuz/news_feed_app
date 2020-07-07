@@ -17,11 +17,9 @@ package com.example.android.newsfeedapp;
 
 import android.text.TextUtils;
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Helper methods related to requesting and receiving earthquake data from USGS.
+ * Helper methods related to requesting and receiving articles data from Guardian website.
  */
 public final class QueryUtils {
 
@@ -50,7 +48,7 @@ public final class QueryUtils {
     }
 
     /**
-     * Query the USGS dataset and return a list of {@link NewsArticle} objects.
+     * Query the Guardian dataset and return a list of {@link NewsArticle} objects.
      */
     public static List<NewsArticle> fetchNewsData(String requestUrl) {
         // Create URL object
@@ -164,13 +162,6 @@ public final class QueryUtils {
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
 
-//            // Create a JSONObject from the JSON response string
-//            JSONObject baseJsonResponse = new JSONObject(newsJSON);
-//
-//            // Extract the JSONArray associated with the key called "features",
-//            // which represents a list of features (or news articles).
-//            JSONArray earthquakeArray = baseJsonResponse.getJSONArray("features");
-
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
 
             //Get the instance of JSONArray that contains JSONObjects
@@ -182,40 +173,19 @@ public final class QueryUtils {
             // For each article in the jsonArray, create an {@link NewsArticle} object
             for (int i = 0; i < jsonArray.length(); i++) {
 
-                // Get a single news article at position i within the list of earthquakes
+                // Get a single news article at position i within the list of articles
                 JSONObject currentArticle = jsonArray.getJSONObject(i);
-
-//                // For a given earthquake, extract the JSONObject associated with the
-//                // key called "properties", which represents a list of all properties
-//                // for that earthquake.
-//                JSONObject properties = currentArticle.getJSONObject("properties");
-
-////                // Extract the value for the key called "mag"
-////                double magnitude = properties.getDouble("mag");
-//                String magnitude = "placeholder magnitude";
-//
-//                // Extract the value for the key called "place"
-//                String location = properties.getString("place");
-//
-////                // Extract the value for the key called "time"
-//////                long time = properties.getLong("time");
-//                String time = "placeholder time";
-//
-//                // Extract the value for the key called "url"
-//                String url = properties.getString("url");
 
                 String sectionName = currentArticle.optString("sectionName");
                 String webTitle = currentArticle.optString("webTitle");
                 String webUrl = currentArticle.optString("webUrl");
                 String datePublished = currentArticle.optString("webPublicationDate");
 
-
-                // Create a new {@link NewsArticle} object with the magnitude, location, time,
-                // and url from the JSON response.
-                //NewsArticle article = new NewsArticle(magnitude, location, time, url);
+                // Create a new {@link NewsArticle} object with the section name, title, url,
+                // and datetime from the JSON response.
                 NewsArticle article = new NewsArticle(sectionName, webTitle, webUrl, datePublished);
 
-                // Add the new {@link NewsArticle} to the list of earthquakes.
+                // Add the new {@link NewsArticle} to the list of news articles.
                 articles.add(article);
             }
 
@@ -226,7 +196,7 @@ public final class QueryUtils {
             Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
         }
 
-        // Return the list of earthquakes
+        // Return the list of articles
         return articles;
     }
 

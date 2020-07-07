@@ -23,7 +23,6 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.util.Log;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -43,7 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_main);
 
-            Preference minPagesize = findPreference(getString(R.string.settings_min_pagesize_key));
+            Preference minPagesize = findPreference(getString(R.string.settings_pagesize_key));
             bindPreferenceSummaryToValue(minPagesize);
 
             Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
