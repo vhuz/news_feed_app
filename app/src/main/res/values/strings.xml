@@ -11,7 +11,7 @@
     <!-- Settings Menu Item [CHAR LIMIT=NONE] -->
     <string name="settings_menu_item">Settings</string>
     <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
-    <string name="settings_title">Gardian News Settings</string>
+    <string name="settings_title">Guardian News Settings</string>
 
     <!-- Strings For Page Size Preference [CHAR LIMIT=30] -->
     <string name="settings_pagesize_label">Page size (from 1 to 50)</string>
@@ -24,7 +24,7 @@
     <string name="settings_order_by_key" translatable="false">order-by</string>
     <string name="settings_order_by_default" translatable="false">@string/settings_order_by_oldest_value</string>
 
-    <!-- Label for order-by magnitude option [CHAR LIMIT=20] -->
+    <!-- Label for order-by option [CHAR LIMIT=20] -->
     <string name="settings_order_by_oldest_label">Oldest</string>
     <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
 
@@ -32,28 +32,28 @@
     <string name="settings_order_by_most_recent_label">Newest</string>
     <string name="settings_order_by_most_recent_value" translatable="false">newest</string>
 
-    <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
+    <!-- Strings For Filter-By Preference [CHAR LIMIT=30] -->
     <string name="settings_filter_by_label">Filter By Section</string>
     <string name="settings_filter_by_key" translatable="false">section</string>
     <string name="settings_filter_by_default" translatable="false">@string/settings_filter_by_politics_value</string>
 
-    <!-- Label for order-by magnitude option [CHAR LIMIT=20] -->
+    <!-- Label for filter-by news option [CHAR LIMIT=20] -->
     <string name="settings_filter_by_news_label">News</string>
     <string name="settings_filter_by_news_value" translatable="false">news</string>
 
-    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+    <!-- Label for filter-by politics option [CHAR LIMIT=20] -->
     <string name="settings_filter_by_politics_label">Politics</string>
     <string name="settings_filter_by_politics_value" translatable="false">politics</string>
 
-    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+    <!-- Label for filter-by football option [CHAR LIMIT=20] -->
     <string name="settings_filter_by_football_label">Football</string>
     <string name="settings_filter_by_football_value" translatable="false">football</string>
 
-    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+    <!-- Label for filter-by sport option [CHAR LIMIT=20] -->
     <string name="settings_filter_by_sport_label">Sport</string>
     <string name="settings_filter_by_sport_value" translatable="false">sport</string>
 
-    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+    <!-- Label for filter-by culture option [CHAR LIMIT=20] -->
     <string name="settings_filter_by_culture_label">Culture</string>
     <string name="settings_filter_by_culture_value" translatable="false">culture</string>
 

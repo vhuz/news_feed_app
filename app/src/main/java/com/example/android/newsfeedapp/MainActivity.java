@@ -10,7 +10,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mEmptyStateTextView = findViewById(R.id.empty_view);
         articleListView.setEmptyView(mEmptyStateTextView);
 
-        // Create a new adapter that takes an empty list of earthquakes as input
+        // Create a new adapter that takes an empty list of articles as input
         mAdapter = new NewsArticleAdapter(this, new ArrayList<NewsArticle>());
 
         // Set the adapter on the {@link ListView}
@@ -87,15 +86,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         articleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // Find the current earthquake that was clicked on
+                // Find the current article that was clicked on
                 NewsArticle currentArticle = mAdapter.getItem(position);
-
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
                 Uri articleUri = Uri.parse(currentArticle.getUrl());
-
-                // Create a new intent to view the earthquake URI
+                // Create a new intent to view the article URI
                 Intent websiteIntent = new Intent(Intent.ACTION_VIEW, articleUri);
-
                 // Send the intent to launch a new activity
                 startActivity(websiteIntent);
             }
@@ -142,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             View loadingIndicator = findViewById(R.id.loading_indicator);
             loadingIndicator.setVisibility(View.VISIBLE);
 
-            // Restart the loader to requery the USGS as the query settings have been updated
+            // Restart the loader to requery the Guardian as the query settings have been updated
             getLoaderManager().restartLoader(NEWS_LOADER_ID, null, this);
         }
     }
@@ -192,13 +188,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mEmptyStateTextView.setText(R.string.no_news);
 
         // Clear the adapter of previous article data
-        //mAdapter.clear();
+        mAdapter.clear();
 
         // If there is a valid list of {@link NewsArticle}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (articles != null && !articles.isEmpty()) {
             mAdapter.addAll(articles);
-            //updateUi(articles);
         }
     }
 

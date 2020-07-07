@@ -196,27 +196,25 @@ public final class QueryUtils {
 
 
                 if (authorUsed) {
+                    //  if author exist for current article, proceed with nested "if" further
+                    // Depending if Datetime data of field "webPublicationDate" exist, use one or another constructor
+                    if (currentArticle.optString("webPublicationDate")!= null) {
+                        String datePublished = currentArticle.optString("webPublicationDate");
+                        // Create a new {@link NewsArticle} object with the section name, title, url,
+                        // and datetime from the JSON response.
+                        NewsArticle article = new NewsArticle(sectionName, webTitle, webUrl, datePublished, authorName);
+                        // Add the new {@link NewsArticle} to the list of news articles.
+                        articles.add(article);
+                    } else {
+                        // Create a new {@link NewsArticle} object with the section name, title, url
+                        // from the JSON response.
+                        NewsArticle article = new NewsArticle(sectionName, webTitle, webUrl, authorName);
+                        // Add the new {@link NewsArticle} to the list of news articles.
+                        articles.add(article);
+                    };
 
-
-                // Depending if Datetime data of field "webPublicationDate" exist, use one or another constructor
-                if (currentArticle.optString("webPublicationDate")!= null) {
-                    String datePublished = currentArticle.optString("webPublicationDate");
-                    // Create a new {@link NewsArticle} object with the section name, title, url,
-                    // and datetime from the JSON response.
-                    NewsArticle article = new NewsArticle(sectionName, webTitle, webUrl, datePublished, authorName);
-                    // Add the new {@link NewsArticle} to the list of news articles.
-                    articles.add(article);
                 } else {
-                    // Create a new {@link NewsArticle} object with the section name, title, url
-                    // from the JSON response.
-                    NewsArticle article = new NewsArticle(sectionName, webTitle, webUrl, authorName);
-                    // Add the new {@link NewsArticle} to the list of news articles.
-                    articles.add(article);
-                };
-
-                } else {
-
-
+                    //  in cace is  author does not exist, proceed with nested "if" further
                     // Depending if Datetime data of field "webPublicationDate" exist, use one or another constructor
                     if (currentArticle.optString("webPublicationDate")!= null) {
                         String datePublished = currentArticle.optString("webPublicationDate");

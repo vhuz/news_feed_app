@@ -22,7 +22,6 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -73,7 +72,6 @@ public class SettingsActivity extends AppCompatActivity {
             SharedPreferences preferences =
                     PreferenceManager.getDefaultSharedPreferences(preference.getContext());
             String preferenceString = preferences.getString(preference.getKey(), "");
-            Log.i("Preference screen - preferenceString = ",preferenceString);
             onPreferenceChange(preference, preferenceString);
         }
     }

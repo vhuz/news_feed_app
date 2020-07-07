@@ -45,8 +45,6 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         super(context, 0, articles);
     }
 
-    //TODO: Work on NewsArticleAdapter to show article fields - Section, webTitle, webURL, Author, Date
-
     /**
      * Returns a list item view that displays information about the news article at the given position
      * in the list of articles.
@@ -76,7 +74,7 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
 
         // The date is an optional field, therefore needed to be checked if currentArticle has it.
         if (currentActicle.hasDate()) {
-            //Date Obj = new Date();
+
             Date dateObject = currentActicle.getDateTimePublication();
             // Find the TextView with view ID date
             TextView dateView = listItemView.findViewById(R.id.date);

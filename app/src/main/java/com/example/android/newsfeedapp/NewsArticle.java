@@ -8,17 +8,17 @@ import java.util.Date;
 */
 public class NewsArticle {
 
-    // tag to indication that date data was used in constructor
-    private boolean mDateUsed = false;
+    // tag to indicate that date data was used in constructor
+    private boolean mDateUsed;
     private static final boolean DATE_USED = true;
     private static final boolean DATE_NOT_USED = false;
 
-    // tag to indication that author data was used in constructor
-    private boolean mAuthorUsed = false;
+    // tag to indicate that author data was used in constructor
+    private boolean mAuthorUsed;
     private static final boolean AUTHOR_USED = true;
     private static final boolean AUTHOR_NOT_USED = false;
 
-    // required for the project
+    // required fields for the project
     //-----------------------------------------------------------------
     private String mSectionName;     // source format - String
     private String mWebTitle;        // source format - String
@@ -28,9 +28,10 @@ public class NewsArticle {
     private String mWebPublicationDate;    // source format - Datetime
     private String mAuthor;                // source format - String
 
-    // Constructor with maximum data, including author and webPubilcationDate
+
     /**
      * Constructs a new {@link NewsArticle} object.
+     * Constructor with maximum data, including author and webPubilcationDate
      *
      * @param sectionName is the section article belong
      * @param webTitle is the title of the article
@@ -50,14 +51,14 @@ public class NewsArticle {
         mAuthorUsed = AUTHOR_USED;
     }
 
-
-    // Constructor with minimum data fields used
     /**
      * Constructs a new {@link NewsArticle}.
+     * Constructor with minimum data fields used
      *
      * @param sectionName is the section name of the news article
      * @param webTitle is the title of the news article
      * @param webUrl is the webURL for article
+     *
      */
     public NewsArticle(String sectionName, String webTitle, String webUrl) {
         mSectionName = sectionName;
@@ -67,9 +68,9 @@ public class NewsArticle {
         mAuthorUsed = AUTHOR_NOT_USED;
     }
 
-    // Constructor with webPublicationDate present
     /**
      * Constructs a new {@link NewsArticle}.
+     * Constructor with webPublicationDate present
      *
      * @param sectionName is the section name of the news article
      * @param webTitle is the title of the news article
@@ -78,8 +79,8 @@ public class NewsArticle {
      */
     public NewsArticle(String sectionName, String webTitle, String webUrl, String webPublicationDate) {
         mSectionName = sectionName;
-        mWebTitle = String.valueOf(webTitle);
-        mWebUrl = String.valueOf(webUrl);
+        mWebTitle = webTitle;
+        mWebUrl = webUrl;
         mWebPublicationDate = webPublicationDate;
         mAuthor = mWebTitle;
         mDateUsed = DATE_USED;
