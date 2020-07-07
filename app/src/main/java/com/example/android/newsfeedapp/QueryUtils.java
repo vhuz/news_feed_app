@@ -111,7 +111,7 @@ public final class QueryUtils {
                 Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
+            Log.e(LOG_TAG, "Problem retrieving the article JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -168,8 +168,6 @@ public final class QueryUtils {
             JSONObject firstFeature = baseJsonResponse.getJSONObject("response");
             JSONArray jsonArray = firstFeature.optJSONArray("results");
 
-
-
             // For each article in the jsonArray, create an {@link NewsArticle} object
             for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -179,21 +177,71 @@ public final class QueryUtils {
                 String sectionName = currentArticle.optString("sectionName");
                 String webTitle = currentArticle.optString("webTitle");
                 String webUrl = currentArticle.optString("webUrl");
-                String datePublished = currentArticle.optString("webPublicationDate");
 
-                // Create a new {@link NewsArticle} object with the section name, title, url,
-                // and datetime from the JSON response.
-                NewsArticle article = new NewsArticle(sectionName, webTitle, webUrl, datePublished);
 
-                // Add the new {@link NewsArticle} to the list of news articles.
-                articles.add(article);
+                boolean authorUsed = false; // creating tag for field author if available
+                String authorName = "";
+
+                if (currentArticle.optJSONArray("tags")!=null) {
+
+                // get author of publication from tags array
+                    JSONArray tagsArray = currentArticle.optJSONArray("tags");
+                    JSONObject firstTag = tagsArray.getJSONObject(0);
+                    authorName = firstTag.optString("webTitle");
+                    authorUsed = true;
+
+                } else {
+                    authorUsed = false;
+                }
+
+
+                if (authorUsed) {
+
+
+                // Depending if Datetime data of field "webPublicationDate" exist, use one or another constructor
+                if (currentArticle.optString("webPublicationDate")!= null) {
+                    String datePublished = currentArticle.optString("webPublicationDate");
+                    // Create a new {@link NewsArticle} object with the section name, title, url,
+                    // and datetime from the JSON response.
+                    NewsArticle article = new NewsArticle(sectionName, webTitle, webUrl, datePublished, authorName);
+                    // Add the new {@link NewsArticle} to the list of news articles.
+                    articles.add(article);
+                } else {
+                    // Create a new {@link NewsArticle} object with the section name, title, url
+                    // from the JSON response.
+                    NewsArticle article = new NewsArticle(sectionName, webTitle, webUrl, authorName);
+                    // Add the new {@link NewsArticle} to the list of news articles.
+                    articles.add(article);
+                };
+
+                } else {
+
+
+                    // Depending if Datetime data of field "webPublicationDate" exist, use one or another constructor
+                    if (currentArticle.optString("webPublicationDate")!= null) {
+                        String datePublished = currentArticle.optString("webPublicationDate");
+                        // Create a new {@link NewsArticle} object with the section name, title, url,
+                        // and datetime from the JSON response.
+                        NewsArticle article = new NewsArticle(sectionName, webTitle, webUrl, datePublished);
+                        // Add the new {@link NewsArticle} to the list of news articles.
+                        articles.add(article);
+                    } else {
+                        // Create a new {@link NewsArticle} object with the section name, title, url
+                        // from the JSON response.
+                        NewsArticle article = new NewsArticle(sectionName, webTitle, webUrl);
+                        // Add the new {@link NewsArticle} to the list of news articles.
+                        articles.add(article);
+                    };
+
+                }
+
             }
 
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the article JSON results", e);
         }
 
         // Return the list of articles

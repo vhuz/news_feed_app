@@ -17,8 +17,6 @@
 package com.example.android.newsfeedapp;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,12 +34,6 @@ import java.util.List;
  * to be displayed to the user.
  */
 public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
-
-    /**
-     * The part of the location string from the USGS service that we use to determine
-     * whether or not there is a location offset present ("5km N of Cairo, Egypt").
-     */
-    private static final String LOCATION_SEPARATOR = " of ";
 
     /**
      * Constructs a new {@link NewsArticleAdapter}.
@@ -72,59 +64,51 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         // Find the news article at the given position in the list of articles
         NewsArticle currentActicle = getItem(position);
 
-        // Find the TextView with view ID magnitude
-        TextView magnitudeView = (TextView) listItemView.findViewById(R.id.web_title);
+        // Find the TextView with view the title of the news article
+        TextView titleView = listItemView.findViewById(R.id.web_title);
+        // Display the title of the current article in that TextView
+        titleView.setText(currentActicle.getWebTitle());
 
-        // Format the magnitude to show 1 decimal place
-        //String formattedMagnitude = formatMagnitude(currentActicle.getMagnitude());
-        String formattedMagnitude = currentActicle.getWebTitle();
-        //String formattedMagnitude ="Placeholder Magnitude";
+        // Find the TextView with ID for section name
+        TextView sectionNameView = listItemView.findViewById(R.id.section_name);
+        // Display the section name in that TextView
+        sectionNameView.setText(currentActicle.getSectionName());
 
-        // Display the magnitude of the current earthquake in that TextView
-        magnitudeView.setText(formattedMagnitude);
+        // The date is an optional field, therefore needed to be checked if currentArticle has it.
+        if (currentActicle.hasDate()) {
+            //Date Obj = new Date();
+            Date dateObject = currentActicle.getDateTimePublication();
+            // Find the TextView with view ID date
+            TextView dateView = listItemView.findViewById(R.id.date);
+            // Format the date string (i.e. "Mar 3, 1984")
+            String formattedDate = formatDate(dateObject);
+            // Display the date of the current article in that TextView
+            dateView.setText(formattedDate);
 
-        String originalLocation = currentActicle.getSectionName();
+            // Find the TextView with view ID time
+            TextView timeView = listItemView.findViewById(R.id.time);
+            // Format the time string (i.e. "4:30PM")
+            String formattedTime = formatTime(dateObject);
+            // Display the time of the current article in that TextView
+            timeView.setText(formattedTime);
+        }
 
-        // Find the TextView with view ID location
-        TextView webTitleView = (TextView) listItemView.findViewById(R.id.web_title);
-        // Display the location of the current earthquake in that TextView
-        webTitleView.setText(formattedMagnitude);
-
-        // Find the TextView with view ID location offset
-        TextView sectionNameView = (TextView) listItemView.findViewById(R.id.section_name);
-        // Display the location offset of the current earthquake in that TextView
-        sectionNameView.setText(originalLocation);
-
-
-        // The date is optional field, therefore needed to have a condition.
-        //Date Obj = new Date();
-        Date dateObject = currentActicle.getDateTimePublication();
-
-
-        // Find the TextView with view ID date
-        TextView dateView = (TextView) listItemView.findViewById(R.id.date);
-        // Format the date string (i.e. "Mar 3, 1984")
-        String formattedDate = formatDate(dateObject);
-        // Display the date of the current article in that TextView
-        dateView.setText(formattedDate);
-
-        // Find the TextView with view ID time
-        TextView timeView = (TextView) listItemView.findViewById(R.id.time);
-        // Format the time string (i.e. "4:30PM")
-        String formattedTime = formatTime(dateObject);
-        // Display the time of the current article in that TextView
-        timeView.setText(formattedTime);
-
-
-        //        // Display the earthquake date in the UI
-//        TextView dateTextView = (TextView) findViewById(R.id.textView3);
-//        dateTextView.setText(newsArticle.getDateTimePublication());
-
+        // The author is an optional field, therefore needed to be checked if currentArticle has it.
+        if (currentActicle.hasAuthor()) {
+            //  Find the TextView with view ID author
+            TextView authorTextView = listItemView.findViewById(R.id.author);
+            // Display the author of the current article in that TextView
+            authorTextView.setText(currentActicle.getAuthor());
+            authorTextView.setVisibility(View.VISIBLE);
+        } else {
+            //  Find the TextView with view ID author
+            TextView authorTextView = listItemView.findViewById(R.id.author);
+            authorTextView.setVisibility(View.GONE);
+        }
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;
     }
-
 
     /**
      * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
@@ -142,12 +126,5 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         return timeFormat.format(dateObject);
     }
 
-    /**
-     * Returns a formatted date and time string for when the earthquake happened.
-     */
-    private String getDateString(long timeInMilliseconds) {
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy 'at' HH:mm:ss z");
-        return formatter.format(timeInMilliseconds);
-    }
 
 }

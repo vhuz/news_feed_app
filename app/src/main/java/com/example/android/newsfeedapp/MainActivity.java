@@ -40,9 +40,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      *
      *  instead of secret API key, you can use value: test
      *
+     *  &show-tags=contributor - used to retrieve author information if exist
+     *
      * */
     private static final String WEBSITE_REQUEST_URL =
-            "https://content.guardianapis.com/search?api-key=" + BuildConfig.API_KEY;
+            "https://content.guardianapis.com/search?&show-tags=contributor&api-key=" + BuildConfig.API_KEY;
     
     /**
      * Constant value for the news loader ID. We can choose any integer.
@@ -163,24 +165,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 getString(R.string.settings_filter_by_default)
         );
 
-
         Uri baseUri = Uri.parse(WEBSITE_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         // This is where we build URL based on preferences choice of the topic of the user
 
-//        // adding search parameter "&section=news"
-//        uriBuilder.appendQueryParameter("section", "news");
+        // adding search parameter by filter, for example "&section=news"
         uriBuilder.appendQueryParameter(getString(R.string.settings_filter_by_key), filterBy);
 
-//        // adding search parameter "&order-by=oldest"
-//        uriBuilder.appendQueryParameter("order-by", "oldest");
+        // adding search parameter by order, for example "&order-by=" oldest or newest
         uriBuilder.appendQueryParameter(getString(R.string.settings_order_by_key), orderBy);
 
-        // adding search parameter, for example "&page-size=50"
+        // adding quantity of articles, for example "&page-size=50"
         uriBuilder.appendQueryParameter(getString(R.string.settings_pagesize_key), minPageSize);
-
-        Log.i("onCreateLoader",uriBuilder.toString());
 
         return new NewsLoader(this, uriBuilder.toString());
     }

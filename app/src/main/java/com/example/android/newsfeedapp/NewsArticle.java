@@ -9,12 +9,12 @@ import java.util.Date;
 public class NewsArticle {
 
     // tag to indication that date data was used in constructor
-    private boolean dateUsed = false;
+    private boolean mDateUsed = false;
     private static final boolean DATE_USED = true;
     private static final boolean DATE_NOT_USED = false;
 
     // tag to indication that author data was used in constructor
-    private boolean authorUsed = false;
+    private boolean mAuthorUsed = false;
     private static final boolean AUTHOR_USED = true;
     private static final boolean AUTHOR_NOT_USED = false;
 
@@ -27,11 +27,6 @@ public class NewsArticle {
     //-----------------------------------------------------------------
     private String mWebPublicationDate;    // source format - Datetime
     private String mAuthor;                // source format - String
-    // example of webTitle - 	"Coronavirus is our chance to completely rethink what the economy is for | Malcolm Bull"
-    // author is listed after separator |
-    // required for the project if available
-
-
 
     // Constructor with maximum data, including author and webPubilcationDate
     /**
@@ -39,18 +34,20 @@ public class NewsArticle {
      *
      * @param sectionName is the section article belong
      * @param webTitle is the title of the article
+     * @param webUrl is the website URL to find more details and article itself
      * @param webPublicationDate date of the publication (if available)
      * @param author - author of the publication (if available)
-     * @param url is the website URL to find more details and article itself
+     *
      */
-    public NewsArticle(String sectionName, String webTitle, String webPublicationDate, String author, String url) {
+
+    public NewsArticle(String sectionName, String webTitle, String webUrl,  String webPublicationDate, String author) {
         mSectionName = sectionName;
         mWebTitle = webTitle;
         mWebPublicationDate = webPublicationDate;
         mAuthor = author;
-        mWebUrl = url;
-        dateUsed = DATE_USED;
-        authorUsed = AUTHOR_USED;
+        mWebUrl = webUrl;
+        mDateUsed = DATE_USED;
+        mAuthorUsed = AUTHOR_USED;
     }
 
 
@@ -66,8 +63,8 @@ public class NewsArticle {
         mSectionName = sectionName;
         mWebTitle = webTitle;
         mWebUrl = webUrl;
-        dateUsed = DATE_NOT_USED;
-        authorUsed = AUTHOR_NOT_USED;
+        mDateUsed = DATE_NOT_USED;
+        mAuthorUsed = AUTHOR_NOT_USED;
     }
 
     // Constructor with webPublicationDate present
@@ -85,8 +82,8 @@ public class NewsArticle {
         mWebUrl = String.valueOf(webUrl);
         mWebPublicationDate = webPublicationDate;
         mAuthor = mWebTitle;
-        dateUsed = DATE_USED;
-        authorUsed = AUTHOR_NOT_USED;
+        mDateUsed = DATE_USED;
+        mAuthorUsed = AUTHOR_NOT_USED;
     }
 
     public String getSectionName() { return mSectionName;}
@@ -97,21 +94,9 @@ public class NewsArticle {
     public Date getDateTimePublication() {
         return Date.from(Instant.parse(mWebPublicationDate));
     }
+    public String getAuthor () {return mAuthor;}
 
-    public String getAuthor () {
-
-        // reference https://javarevisited.blogspot.com/2016/10/how-to-check-if-string-contains-another-substring-in-java-indexof-example.html
-        boolean isFound = mWebTitle.indexOf("|") != -1;
-
-        // Need to add another condition. The word should have a space to separate first name and last name.
-        // Some of words after "|" have "Editorial", "Letter", "Letters" and so on.
-
-
-        if (isFound) {
-            mAuthor = "Author Exist";
-        } else {
-            mAuthor = "Not available";
-        }
-        return mAuthor;}
+    public Boolean hasDate() {return mDateUsed;}
+    public Boolean hasAuthor() {return mAuthorUsed;}
 
 }
