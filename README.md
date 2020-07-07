@@ -10,7 +10,7 @@ https://open-platform.theguardian.com/documentation/
 Pre-requisites
 --------------
 
-- Android SDK v26
+- Android SDK v29
 - Android Build Tools v29.0.3
 
 Getting Started
