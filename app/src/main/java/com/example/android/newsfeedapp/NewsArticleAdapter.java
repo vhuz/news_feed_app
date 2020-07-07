@@ -73,7 +73,7 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         NewsArticle currentActicle = getItem(position);
 
         // Find the TextView with view ID magnitude
-        TextView magnitudeView = (TextView) listItemView.findViewById(R.id.magnitude);
+        TextView magnitudeView = (TextView) listItemView.findViewById(R.id.web_title);
 
         // Format the magnitude to show 1 decimal place
         //String formattedMagnitude = formatMagnitude(currentActicle.getMagnitude());
@@ -83,19 +83,7 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         // Display the magnitude of the current earthquake in that TextView
         magnitudeView.setText(formattedMagnitude);
 
-        // Set the proper background color on the magnitude circle.
-        // Fetch the background from the TextView, which is a GradientDrawable.
-        GradientDrawable magnitudeCircle = (GradientDrawable) magnitudeView.getBackground();
-
-        // Get the appropriate background color based on the current earthquake magnitude
-        //int magnitudeColor = getMagnitudeColor(currentActicle.getMagnitude());
-        int magnitudeColor = 5; // placeholder magnitude
-        // Set the color on the magnitude circle
-        magnitudeCircle.setColor(magnitudeColor);
-
         String originalLocation = currentActicle.getSectionName();
-
-
 
         // Find the TextView with view ID location
         TextView webTitleView = (TextView) listItemView.findViewById(R.id.web_title);
@@ -110,8 +98,6 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
 
         // The date is optional field, therefore needed to have a condition.
         //Date Obj = new Date();
-
-
         Date dateObject = currentActicle.getDateTimePublication();
 
 

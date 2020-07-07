@@ -19,22 +19,18 @@ public class NewsArticle {
     private static final boolean AUTHOR_NOT_USED = false;
 
     // required for the project
-    // source format - String
-    private String mSectionName;
+    //-----------------------------------------------------------------
+    private String mSectionName;     // source format - String
+    private String mWebTitle;        // source format - String
+    private String mWebUrl;          // source format - String
     // required for the project if available
-    // source format - Datetime
-    private String mWebPublicationDate;
-    // required for the project
-    // source format - String
-    private String mWebTitle;
-    // need so we can pass it in intent for webbrowser
-    // source format - String
-    private String mWebUrl;
+    //-----------------------------------------------------------------
+    private String mWebPublicationDate;    // source format - Datetime
+    private String mAuthor;                // source format - String
     // example of webTitle - 	"Coronavirus is our chance to completely rethink what the economy is for | Malcolm Bull"
     // author is listed after separator |
     // required for the project if available
-    // source format - String
-    private String mAuthor;
+
 
 
     // Constructor with maximum data, including author and webPubilcationDate

@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         String minPageSize = sharedPrefs.getString(
                 getString(R.string.settings_pagesize_key),
-                getString(R.string.settings_min_pagesize_default));
+                getString(R.string.settings_pagesize_default));
 
         String orderBy = sharedPrefs.getString(
                 getString(R.string.settings_order_by_key),
